@@ -1,0 +1,7 @@
+acPublisherIp = "127.0.0.1"
+acPublisherBindPort = "63222"
+
+acBindPort = "63221"
+
+lstEchoRoutes = [["ADCS/DSF/LzaT61IEngagementOrderUnsol", "ELM/MGB/LzaT61IEngagementOrderUnsol"]
+                ,["ADCS/DSF/LzaC02SurfaceTrackReportUnsol", "ELM/MGB/LzaC02SurfaceTrackReportUnsol"]]

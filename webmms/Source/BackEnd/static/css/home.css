@@ -1,0 +1,559 @@
+/*"""-----------------------------------------------------------------------------
+
+Company  : Reutech Radar Systems
+Designer : T Ramukosi
+Mentor   : J Taylor
+Generated: 2018-08-30
+-----------------------------------------------------------------------------*/
+
+html, body{
+    background-color: rgba(240, 240, 240, 0.596);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    min-width: 840px;
+    color: black;
+}
+
+#jsonFile{
+    display: none;
+}
+.HeaderTitle{
+    font-size: 36px;
+    margin-top: -5px;
+}
+.HeaderTitle i{
+    font-size: 12px;
+    position: absolute;
+    margin-top: 45px;
+    margin-left: 5px;
+    color: black;
+}
+.changeBackgoundColor{
+    text-align: center;
+}
+#changeBackground{
+    text-align: center;
+    margin-top: 20px;
+    font-style: normal;
+    font-size: 14px;
+}
+#changeBackground:hover{
+    cursor: pointer;
+    opacity: .7;
+}
+.logo img{
+    float: right;
+    margin-top: 3px;
+    right: 5px;
+    width: 150px;
+    height: 50px;
+}
+.logo img:hover{
+    cursor: pointer;
+}
+.header-Panel{
+    height: 50px;
+}
+.all-panels{
+    float: left;
+    top: 60px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    overflow: auto;
+    border-top: 1px solid grey;
+    color: black;
+}
+.all-panels-black{
+    color: rgb(255, 255, 255);
+    float: left;
+    top: 60px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    overflow: auto;
+    border-top: 1px solid grey;
+}
+.left-panel, .mid-panel, .right-panel{
+    overflow: auto;
+    -moz-overflow: auto;
+    padding-bottom: 50px;
+    min-width: 280px;
+    height: 100%;
+
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+}
+.Left::-webkit-scrollbar,
+.Middle::-webkit-scrollbar,
+.Right::-webkit-scrollbar {
+    display: none;
+}
+.left-panel{
+    border-right: 5px solid rgb(216, 216, 216);
+}
+.mid-panel{
+    border-left: 5px solid rgb(216, 216, 216);
+    border-right: 5px solid rgb(216, 216, 216);
+}
+.PipesMenu{
+    margin-top: 10px;
+    cursor: pointer;
+}.PipesMenu .pipeList, .PipesMenu .activePipeList{
+    padding-left: 20px;
+    cursor: pointer;
+}
+.activePipeXmls{
+    padding-bottom: 25px;
+}
+.pipeList p, .activePipeList p{
+    transition: all .5s;
+    width: 100%;
+    padding: 2px;
+    position: relative;
+    text-decoration: none;
+}
+.pipeList p:hover, .activePipeList p:hover{
+    transform: scale(1.01);
+    border-bottom: 1px solid black;
+    transition: all 1s;
+    background-color: lightgrey;
+}
+.menu{
+    width:33.3%;
+    border: 1px solid lightgrey;
+    background-color: lightgrey;
+    float: left;
+    overflow: hidden;
+    text-align: center;   
+    
+}.menu:hover{
+    cursor: pointer;
+}
+.activeMenu{
+    background-color: rgba(240, 240, 240, 0.596);
+    border: none;
+}
+.displayBlock{
+    display: block;
+}
+.displayNone{
+    display: none;
+}
+#AddPipeButton:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+#recorded:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+#reset:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+#AddXmlButton{
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(240, 240, 240, 0.596);
+    border: 1px solid black;
+    width: 100%;
+    height: fit-content;
+    padding: 3px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+#AddXmlButton:hover{
+    opacity: .7;
+}
+#table1{
+    z-index: 3;
+    box-shadow:-1px -1px 10px -3px  rgb(0, 0, 0);
+}
+#table2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 3;
+    box-shadow:-1px -1px 10px -3px  rgb(0, 0, 0);
+}
+#tableIP_PORT{
+    margin-top: 10px;
+    box-shadow:-1px -1px 10px -3px  rgb(0, 0, 0);
+}
+#tableXmls{
+    margin-top: 10px;
+}
+.td_selectXML{
+    padding-top: 25px;
+}
+
+.removeXml{
+    cursor: pointer;
+    width: 100%;
+    height: fit-content;
+    margin-top: 25px;
+}
+#fa5{
+    margin-top: 25px;
+}
+.selXml{
+    width: 100%;
+}
+
+#filter{
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    position: fixed;
+    width: 33%;
+    height: 35px;
+    display: flex;
+    z-index: 3;
+    margin-left: -13px;
+}
+#AutoScriptFilter{
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    position: fixed;
+    width: 33%;
+    height: 35px;
+    display: flex;
+    z-index: 3;
+    margin-left: -13px;
+}
+
+#filterBox, #AutoScriptFilterBox{
+    position: fixed;
+    background-color: rgb(240, 240, 240);
+    width: 33%;
+    margin-left: 0px;
+}
+.MessagesMenu{
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+.AutoScriptMenu{
+    overflow: hidden;
+    margin-bottom: 50px;
+    margin-top: 0px;
+    width: 100%;
+}
+.AutoScriptMenu ul i{
+    margin-left: 10px;
+}
+.AutoScriptMenu ul li i:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+.selElement{
+    cursor: pointer;
+}
+.selElement:hover{
+    opacity: .5;
+}
+.structField{
+    cursor: pointer;
+}
+.structField:hover{
+    opacity: .5;
+}
+#submitButton{
+    text-align: center;
+    align-self: center;
+}
+#deleteButton{
+    text-align: center;
+}
+.flip {
+    transform: rotate(90deg);
+    transition: .5s;
+}
+#viewPipe:hover, #viewAutoScript:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+#disPipe{
+    color: firebrick;
+    margin-right: 10px;
+}#disPipe:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+#addXml{
+    margin-left: 10px;
+}
+#newTab a{
+    color: black;
+}
+#newTab i{
+    top: 10px;
+    right: 15px;
+    position: absolute;
+    font-size: 20px;
+}#newTab i:hover{
+    opacity: .5;
+    cursor: pointer;
+}
+.receivedMsg, .totNumOfSubMsgs{
+    color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 2px solid radial-gradient(ellipse at bottom, #5091DD 0%, #030617 100%);
+    border-radius: 50%;
+    font-size: 10px;
+    margin-top: -5px;
+    position: absolute;
+    transform: rotate(0deg);
+    transition: .5s;
+}
+
+.delayInSec{
+    border: 2px solid radial-gradient(ellipse at bottom, #5091DD 0%, #030617 100%);
+    border-radius: 50%;
+    font-size: 10px;
+    margin-top: -5px;
+    margin-left: -15px;
+    position: absolute;
+    transform: rotate(0deg);
+    transition: .5s;
+}
+.editXmlRemBut{
+    margin-top: -20px;
+    margin-left: 10px;
+}
+#Msgs{
+    margin-top: 35px;
+}
+
+.bottom-menu{
+    margin-top: 20px;
+    position: fixed;
+    background-color: rgba(232, 232, 232, 0);
+    bottom: 0px;
+    color: black;
+    float: left;
+    overflow: auto;
+    text-align: center;
+    width:32%;
+    height: 30px;
+    margin-left:-10px;
+    padding-top: 5px;
+    z-index: 3;
+} 
+#disPipe{
+    margin-left: 100px;
+}
+#editPipeTable{
+    margin-top: 10px;
+} 
+
+#pipeMidPanel{
+    width: 100%;
+}
+#pipeMidPanel table{
+    width: 100%;
+}
+#pipeMidPanel tr{
+    width:100%;
+}
+
+.tabDescription{
+    width: 120px;
+}
+
+#pipeMidPanel tr input[type="text"]{
+    width:100%;
+}
+
+.AddPipe .fa{
+    margin-left: 5px;
+    cursor: pointer;
+}
+.AddPipe select, .AddPipe input[type="text"]{
+    width: 80%;
+}
+
+#saveLog img{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 15px;
+    margin-right: 35px;
+    width: 50px;
+    height: 55px;
+}
+
+.recordedMsgs_ul i{
+    font-style: normal;
+}
+.recordedMsgs_ul li{
+    margin-left: 25px;
+}.recordedMsgs_ul i:hover{
+    opacity: 1;
+}
+
+.save_data{
+    width: 100px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.save_data:hover{
+    cursor: pointer;
+    background-color: black;
+    color: lightgrey;
+    transition: 1s;
+}
+
+.save_csv{
+    width: 100px;
+    text-align: center;
+    margin-right: 5px;
+}
+.save_csv:hover{
+    cursor: pointer;
+    background-color: black;
+    color: lightgrey;
+    transition: 1s;
+}
+
+.delete_data{
+    width: 100px;
+    text-align: center;
+    margin-left: 5px;
+}
+.delete_data:hover{
+    cursor: pointer;
+    background-color: black;
+    color: lightgrey;
+    transition: 1s;
+}
+.recHeader{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+#PipeForm table{
+    width: 100%;
+}
+#PipeForm input[type="text"], #PipeForm select{
+    width: 100%;
+}
+#MQTTRemoteIP, #ZeroMQRemoteIP, #ZeroMQRemoteIPPub, #selectProtocol{
+    margin-top: 10px;
+}
+
+#xmlSchema{
+    height: 28px;
+}
+.xmlSchema_info{
+    position: relative;
+    float: left;
+    color: red;
+    margin-left: 100px;
+}
+#webMMRules h3{
+    text-decoration: underline;
+    text-align: center;
+}
+#table_buttons{
+    margin-top: 25px;
+    text-align: center;
+}
+#connectionStatus{
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.loading{
+    display:flex;
+    animation-delay:1s;
+    justify-content: center;
+}
+.loading .dot{
+    position: relative;
+    width: 2em;
+    height: 2em;
+    margin: 0.8em;
+    border-radius: 50%;
+    background-color: green;
+}
+.loading .dot::before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: inherit;
+    animation: wave 2s ease-out infinite;
+}
+.loading .dot:nth-child(1){
+    background: rgb(230, 230, 230);
+}
+.loading .dot:nth-child(1)::before{
+    animation-delay: 0.2s;
+}
+.loading .dot:nth-child(2){
+    background: rgb(210, 210, 210);
+}
+.loading .dot:nth-child(2)::before{
+    animation-delay: 0.4s;
+}
+.loading .dot:nth-child(3){
+    background: rgb(190, 190, 190);
+}
+.loading .dot:nth-child(3)::before{
+    animation-delay: 0.6s;
+}
+.loading .dot:nth-child(4){
+    background: rgb(170, 170, 170);
+}
+.loading .dot:nth-child(4)::before{
+    animation-delay: 0.8s;
+}
+.loading .dot:nth-child(5){
+    background: rgb(150, 150, 150);
+}
+.loading .dot:nth-child(5)::before{
+    animation-delay: 1s;
+}
+@keyframes wave{
+    50%,
+    75%{
+        transform: scale(2.5);
+    }
+    80%,
+    100%{
+        opacity: 0;
+    }
+}
+
+#databaseStructure, .databaseMessages{
+    margin-bottom: 5px;
+}
+#databaseCreate, #databaseMessages{
+    margin-left: 5px;
+}
+#databaseCreate{
+    margin-bottom: -5px;
+}
+.databaseChildren{
+    display: none;
+}
+
+#CreateDatabase{
+    text-align: center;
+    margin-left: 40%;
+}
+.deleteFile:hover{
+    cursor: pointer;
+}
+
+#CreateDatabase{
+    margin-top: 10px;
+}

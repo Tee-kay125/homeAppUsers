@@ -1,0 +1,109 @@
+*************************Docker Commands********************************
+
+## List Docker CLI commands
+docker
+docker container --help
+
+## Display Docker version and info
+docker --version
+docker version
+docker info
+
+## Execute Docker image
+docker run hello-world
+
+## List Docker images
+docker image ls
+
+## List Docker containers (running, all, all in quiet mode)
+docker container ls
+docker container ls --all
+docker container ls -aq
+
+##Run the app, mapping your machine’s port 4000 to the container’s published port 80 using -p:
+
+docker run -p 4000:80 friendlyhello
+
+##You can also use the curl command in a shell to view the same content.
+
+curl http://localhost:4000
+
+##run the app in the background, in detached mode:
+
+docker run -d -p 4000:80 friendlyhello
+
+##to end the process, using the CONTAINER ID, like so:
+
+docker container stop CONTAINER ID
+
+##Pull and run the image from the remote repository
+
+docker run -p 4000:80 username/repository:tag
+
+*************************Docker-compose.yml steps********************************
+Create a docker-compose.yml file
+docker swarm init
+docker stack deploy -c docker-compose.yml <container name>
+docker service ls
+docker service ps getstartedlab_web
+
+docker stack ls                                            # List stacks or apps
+docker stack deploy -c <composefile> <appname>  # Run the specified Compose file
+docker service ls                 # List running services associated with an app
+docker service ps <service>                  # List tasks associated with an app
+docker inspect <task or container>                   # Inspect task or container
+docker container ls -q                                      # List container IDs
+docker stack rm <appname>                             # Tear down an application
+docker swarm leave --force      # Take down a single node swarm from the manager
+
+*************************Docker Errors********************************
+
+//To fix this error, I just kept tying to login and it end up login-in.
+//use docker login --username <username> --password-stdin <password>
+
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Error response from daemon: Get https://registry-1.docker.io/v2/: EOF
+
+//Restarting Docker helps.
+C:\Program Files\Docker\Docker\Resources\bin\docker.exe: Error response from daemon:
+driver failed programming external connectivity on endpoint clever_proskuriakova
+(b18d7696f66de23ad21c8b4c8ca406715a5a29e5b4d81c11a164d8cf77406b12): Error starting userland proxy:
+mkdir /port/tcp:0.0.0.0:6000:tcp:172.17.0.2:80: input/output error.
+
+*************************Docker on Raspberry Pi ********************************
+
+https://www.freecodecamp.org/news/the-easy-way-to-set-up-docker-on-a-raspberry-pi-7d24ced073ef/
+
+*************************Docker save ********************************
+
+$ docker save -o <TAR_FILE> <IMAGE>
+$ docker save -o dockermms.tar docmms
+
+*************************Docker save ********************************
+
+docker image load [OPTIONS]
+docker image load -i newmms.tar
+
+*************************Docker bult ********************************
+
+docker build --tag=docmms .
+
+
+************************* Docker restart ********************************
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+
+
+************************* SOME DISCOVERY ABOUT DOCKER ********************************
+1. cross platform, docker image saved on windows can run on linux.
+2. IF daemon/docker is not connecting, follow the docker restart process ABOVE.
+3. When building an image, always have all the libraries required for the app on the requirements text.
+4. on Dockerfile, Expose port 80
+5. with flask app.... use host: 0.0.0.0 port: 80 (same port you are using for exposing docker on Dockerfile)
+6. Prevent running on proxy server.
+7. Docker uses hyper-v and vmware/virtualbox do not work when hyper-v is turned on.
+   search: Turn Windows feature on or off
+       navigate to Hyper-v and turn it on
+

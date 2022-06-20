@@ -1,0 +1,3 @@
+*.py
+
+!adcs_autogen_test_module.py

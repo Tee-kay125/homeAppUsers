@@ -1,0 +1,121 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 15px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 0px;
+    bottom: 0px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(36px);
+    -ms-transform: translateX(36px);
+    transform: translateX(36px);
+  }
+
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 500%;
+  }
+.autoSend{
+    margin-top: -18px;
+    position: absolute;
+}
+.repeatSend td{
+    padding: 10px;
+}
+.repeatTD p:hover{
+    opacity: 1;
+    cursor: auto;
+}
+
+#autoScriptSetupTable input[type="text"], #autoScriptSetupTable input[type="number"]{
+  width: 100%;
+}
+#AutoScriptMsgs{
+  margin-top: 30px;
+  width: 100%;
+  position: relative;
+}
+.td_loadAutoscript{
+  position: relative;
+  width: 100%;
+
+  margin-bottom: 25px;
+}
+.restartAutoscript{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.restartAutoscript:hover{
+  cursor: pointer;
+}
+
+.startAutoscriptSetUp{
+  width: 100%;
+  z-index: 3;
+  box-shadow:-1px -1px 10px -3px  rgb(0, 0, 0);
+}
+.startAutoscriptSetUp tr{
+  width: 100%;
+}
+.startAutoscriptSetUp .left-td{
+  text-align: right;
+  width: 20%;
+}
+.startAutoscriptSetUp .right-td{
+  text-align: left;
+  padding-left: 25px;
+  width: 80%;
+}
+
+.startAutoscriptSetUp .right-td input[type="text"]{
+  width: 100%;
+}
+
+.startAutoscript{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  margin-top: 25px;
+}

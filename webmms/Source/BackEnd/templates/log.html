@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Company  : Reutech Radar Systems
+Designer : T Ramukosi
+Mentor   : J Taylor
+Generated: 2018-08-30
+-->
+
+<html>
+  <head>
+    <title id="title" > Log </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv="Pragma" content="no-cache" />
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/small-devices.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/msgLog.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/font-awesome-4.7.0/css/font-awesome.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+
+  </head>
+
+  <body>
+    <div class="container-fluid">
+        <div class="row header-Panel">
+            <div class="col-md-6 HeaderTitle">
+              <i> V-0.1 </i> Message Manager
+            </div>
+            <div class="col-md-6 logo"> 
+                <img src="/static/images/ReutechLogo.svg"/>
+            </div>
+          </div>
+      <div class="row all-panels">
+        <div class="col-md-12 mid-panel">
+          <div class="row">
+              <div class="col-md-12">
+                  <a id="saveLog" href="/getLog.txt" download> <img src="/static/images/downloadLog.png"/> </a>
+                <div id="LogMsgs"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/MsgLog.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/fontawesome.min.js') }}"></script>
+
+  </body>
+</html>

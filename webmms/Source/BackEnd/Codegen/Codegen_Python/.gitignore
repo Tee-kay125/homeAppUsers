@@ -1,0 +1,16 @@
+# Ignore everything
+
+
+# But not these files...
+!.gitignore
+!autogen_python.py
+!autogen_python_config.ini
+!python.message.define.j2
+!python.message.processing.j2
+!python.message.processing.binary.j2
+!python.message.processing.database.j2
+!python.mqtt.template.j2
+!ReadMe.md
+!.vscode/
+!._pycache_
+

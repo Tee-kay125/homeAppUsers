@@ -1,0 +1,5 @@
+Flask==1.0.2
+paho-mqtt==1.4.0
+configparser==3.5.0
+lxml==4.3.0
+pyzmq==19.0.1

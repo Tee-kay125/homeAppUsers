@@ -1,0 +1,28 @@
+{
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pycodestyleArgs": [
+        "--ignore=E402,E501" // Not at top of file; Line too long
+    ],   
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore=E402,E501" // Not at top of file; Line too long
+    ],  
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--disable=C0413",
+        "--disable=W0703",
+        "--disable=C0103", // Used when the name doesn’t conform to naming rules associated to its type (constant, variable, class...).
+        "--disable=C0301", // Line to long
+        "--disable=C0325",  // Unnecesary parentheses after %r keyword
+        "--disable=R0902",  // Too many instance attributes (%s/%s)
+        "--disable=R0903",  // Too few public methods (%s/%s)
+        "--disable=R0911",  // Too many return statements (%s/%s)
+        "--disable=R0912",  // Too many branches (%s/%s)
+        "--disable=R0913",  // Too many arguments (%s/%s)
+        "--disable=R0914",  // Too many local variables (%s/%s)
+        "--disable=R0915",  // Too many statements (%s/%s)
+        "--disable=C0302"   // Used when a module has too much lines, reducing its readability
+
+    ],
+    "editor.tabSize": 4
+}

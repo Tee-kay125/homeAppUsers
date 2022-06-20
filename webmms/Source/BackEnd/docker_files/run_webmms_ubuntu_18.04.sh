@@ -1,0 +1,1 @@
+sudo docker run --volume /home/adcs/Documents/gitwork_2019_12_02/webmm/Source/BackEnd/docker_files/SICD:/app/SICD --volume /home/adcs/Documents/gitwork_2019_12_02/webmm/Source/BackEnd/docker_files/recordedMessages/recordedMessages.json:/app/Structure/recordedMessages.json -p 5007:80 webmms

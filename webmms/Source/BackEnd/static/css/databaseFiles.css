@@ -1,0 +1,111 @@
+.fileName{
+    cursor: pointer;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.fileName:hover{
+    opacity: .5;
+}
+.messageBlock{
+    cursor: pointer;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.messageBlock:hover{
+    opacity: .5;
+}
+.messageName{
+    margin-left: 75px;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left:25px;
+}
+.messageName:hover{
+    opacity: .5;
+}
+.left-panel li{
+    list-style: none;
+}
+.structureUL, .level1Struct{
+    padding-top: 10px;
+    margin-top: 10px;
+}
+.right-panel input[type="text"]{
+    width: 100%;
+}
+.rawTextTable{
+    width: 100%;
+}
+.tableRow{
+    width: 100%;
+    position: relative;
+    left: 0;
+}
+.labelTableData{
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+.textTableData{
+    position: relative;
+    right: 0;
+    width: 50%;
+}
+.updateMessageDiv{
+    position: relative;
+}
+.updateMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+}
+.MsgName{
+    text-align: center;
+    margin-bottom: 25px;
+}
+.exportButon{
+    width: 100%;
+    text-align: center;
+    margin-top: -15px;
+    margin-bottom: 25px;
+}
+.exportMessageBlock{
+    cursor: pointer;
+}
+.openedArrow{
+    transform: rotate(90deg);
+}
+.closedArrow{
+    transform: rotate(0deg);
+}
+.structRight{
+    transform: rotate(-90deg);
+}
+.structDown{
+    transform: rotate(0deg);
+}
+.export_file{
+    border: 1px solid grey;
+    padding: 5px 10px 5px 10px;
+    color: black;
+    background-color: rgb(230, 230, 230);
+}
+.export_file:hover{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    opacity: .9;
+}
+
+#reloadDatabaseImport{
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#reloadDatabaseImport:hover{
+    cursor: pointer;
+}

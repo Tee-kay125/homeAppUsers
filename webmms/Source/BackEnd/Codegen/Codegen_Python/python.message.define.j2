@@ -1,0 +1,446 @@
+"""
+    Autogen - Do not edit by hand!
+    Autogen - Do not edit by hand!
+    Autogen - Do not edit by hand!
+
+    Generated using Python, with Jinja2
+    Generated on {{ date }}
+    
+"""
+
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Base
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Enum
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_EnumArray
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Struct
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_StructArray
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Message
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Add_Enum
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Add_Class
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_Add_Message
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_HdrStruct
+from Codegen.Codegen_Python.Generated_Python.CCS_Types import CCS_MsgStruct
+
+{% for acIncludeFilename in XmlIncludes -%}
+from Codegen.Codegen_Python.Generated_Python.{{ acIncludeFilename}} import *
+{% endfor -%}
+
+# ==========================================================
+# TYPEDEFS START #
+# ==========================================================
+{% for Element in TypeDefElements %}
+{# Comment Header of Class -#}
+{%      if Element["FunctionType"] != "struct" -%}
+{{""}}
+{{""}}class {{ Element["TypedefTest"].get("Name") }}(CCS_Enum):  # ENUM {{ Element["TypedefTest"].get("Name") }}
+{{""}}    """Public class definition of type {{ Element["TypedefTest"].get("Name") }}
+{{""}}    Args:
+{{""}}        defaultValue: The first parameter. Contains the default value.
+{{""}}
+{{""}}    """
+{{"    "}}def __init__(self, defaultValue=0):
+{{"        "}}super({{ Element["TypedefTest"].get("Name") }}, self).__init__('{{EnumTypes[(Element["TypedefTest"].get("Name"))]}}', defaultValue)
+{%      else -%}
+{{""}}
+{{""}}class {{ Element["TypedefTest"].get("Name") }}(CCS_Struct):  # STRUCT {{ Element["TypedefTest"].get("Name") }}
+{{"    "}}def __init__(self, defaultValue=0):
+{{"        "}}super({{ Element["TypedefTest"].get("Name") }}, self).__init__('{{ Element["TypedefTest"].get("Name") }}', defaultValue)
+{%      endif -%}
+{#╔════════════════════╗-#}
+{#║   ENUM TRUE        ║-#}
+{#╚════════════════════╝-#}
+{%    if Element["FunctionType"] == "enum" -%}
+{{""}}    lstRecords = {}
+
+{%      for Records in Element["FunctionVariables"] -%}
+{%        for Record in Records -%}
+{{"    " + Record.get("Name")}} = {{Record.get("Value")}}
+{{""}}    lstRecords.update({'{{Record.get("Name")}}': '{{Record.get("Value")}}'})
+{%        endfor -%}
+{%      endfor -%}
+{%    endif -%}
+{{""}}
+{#╔════════════════════╗-#}
+{#║   STRUCT TRUE      ║-#}
+{#╚════════════════════╝-#}
+{%    if Element["FunctionType"] == "struct"  -%}
+{{"       "}} self.dictRecords = {}
+{{"       "}} self.lstRecords = []
+
+{%      for Records in Element["FunctionVariables"] -%}
+{%        for Record in Records if Record.tag == "Record" -%}
+{#          ╔════════════════════╗-#}
+{#          ║   COUNTBOOL TRUE   ║-#}
+{#          ╚════════════════════╝-#}
+{%          if Record.get("CountBool") == True -%}
+{#            ╔═════════════════════════════╗-#}
+{#            ║   COUNTBOOL TRUE + STRUCT   ║-#}
+{#            ╚═════════════════════════════╝-#}
+{%             if "UseStruct" in Record.attrib.keys() -%}
+{{"        "}}self.cls{{ Record.get("Type") }} = {{ Record.get("Type") }}()
+{{"        "}}for n in range({{ Record.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{ Record.get("Name") }}', 'type': '{{ Record.get("Type") }}', 'members': self.cls{{ Record.get("Type") }}.lstRecords}) #1
+
+{#            ╔═════════════════════════════╗-#}
+{#            ║   COUNTBOOL TRUE + ENUM     ║-#}
+{#            ╚═════════════════════════════╝-#}
+{%             elif Record.get("Type") in EnumTypes.keys() -%}
+{%               if "Default" in Record.attrib.keys() -%}
+{%                 if "bDefaultIsEnum" in Record.keys() -%}
+{{"        "}}for n in range({{ Record.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'enumType': '{{Record.get("Type")}}', 'type': '{{ EnumTypes[Record.get("Type")] }}', 'default': '{{ Record.get("Default") }}', 'value': {{Record.get("Type")}}.lstRecords['{{Record.get("Default")}}'], 'members': {{ Record.get("Type") }}.lstRecords}) #2
+
+{%                 else -%}
+{{"        "}}for n in range({{ Record.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '{{ Record.get("Default") }}', 'value': {{ Record.get("Value") }}, 'members': {{ Record.get("Type") }}.lstRecords}) #3
+
+{%                 endif -%}
+{%               else -%}
+{{"        "}}for n in range({{ Record.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'enumType': '{{Record.get("Type")}}', 'type': '{{ EnumTypes[Record.get("Type")] }}', 'default': '0', 'value': '0', 'members': {{ Record.get("Type") }}.lstRecords}) #4
+
+{%                  endif -%}
+{#            ╔══════════════════════════════════════════╗-#}
+{#            ║   COUNTBOOL TRUE + ELSE (CCS_BASE())     ║-#}
+{#            ╚══════════════════════════════════════════╝-#}
+{%            else -%}
+{%                if Record.get("Type") in ["CH", "ST"]  -%}
+{%                  if "Default" in Record.attrib.keys() -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '{{ Record.get("Default") | replace("\"", "") }}', 'value': '{{ Record.get("Default") | replace("\"", "") }}', 'count': {{ Record.get("Count") }} }) #5-4-1
+{%                  else -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '', 'value': '', 'count': {{ Record.get("Count") }} }) #5-4-2
+{%                  endif -%}
+{%                else -%}
+{{"        "}}for n in range({{ Record.get("Count") }}):
+{%                  if "Default" in Record.attrib.keys() -%}
+{{"            "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '{{Record.get("Default")}}', 'value': '{{Record.get("Default")}}', 'count': 1 }) #5-5-1
+{%                  else -%}
+{{"            "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '0', 'value': '0', 'count': 1 }) #5-5-2
+{%                  endif -%}
+{%                endif -%}
+{%               if "Min" in Record.attrib.keys() -%}
+{{"        "}}self.dictRecords['min'] = '{{Record.get("Min")}}'
+{%              endif -%}
+{%               if "Max" in Record.attrib.keys() -%}
+{{"        "}}self.dictRecords['max'] = '{{Record.get("Max")}}'
+{%               endif -%}
+{%             endif -%}
+
+{#          ╔════════════════════╗-#}
+{#          ║   COUNTBOOL FALSE  ║-#}
+{#          ╚════════════════════╝-#}
+{%          else -%}  {# if Record.get("CountBool") == True -#}
+{#            ╔═════════════════════════════╗-#}
+{#            ║   COUNTBOOL FALSE + STRUCT  ║-#}
+{#            ╚═════════════════════════════╝-#}
+{%            if "UseStruct" in Record.attrib.keys() -%}
+{{"        "}}self.cls{{ Record.get("Type") }} = {{ Record.get("Type") }}()
+{{"        "}}self.lstRecords.append({'name': '{{ Record.get("Name") }}', 'type': '{{ Record.get("Type") }}', 'members': self.cls{{ Record.get("Type") }}.lstRecords}) #7
+
+{#            ╔═════════════════════════════╗-#}
+{#            ║   COUNTBOOL FALSE + ENUM    ║-#}
+{#            ╚═════════════════════════════╝-#}
+{%            elif Record.get("Type") in EnumTypes.keys() -%}
+{%              if "Default" in Record.attrib.keys() -%}
+{%                if "bDefaultIsEnum" in Record.attrib.keys() -%}
+{%                  if Record.get("bDefaultIsEnum") == True -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'enumType': '{{Record.get("Type")}}', 'type': '{{ EnumTypes[Record.get("Type")] }}', 'default': '{{ Record.get("Default") }}', 'value': {{Record.get("Type")}}.lstRecords['{{Record.get("Default")}}'], 'members': {{ Record.get("Type") }}.lstRecords}) #8
+
+{%                  else -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'enumType': '{{Record.get("Type")}}', 'type': '{{ EnumTypes[Record.get("Type")] }}', 'default': '{{ Record.get("Default") }}', 'value': {{ Record.get("Value") }}, 'members': {{ Record.get("Type") }}.lstRecords}) #9
+
+{%                  endif -%}
+{%                else -%}
+{%                endif -%}
+{%              else -%}
+{{"        "}}cls{{Record.get("Type")}} = {{Record.get("Type")}}()
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'enumType': '{{Record.get("Type")}}','type': '{{ EnumTypes[Record.get("Type")]}}', 'default': '0', 'value': '0', 'members': {{ Record.get("Type") }}.lstRecords}) #10
+
+
+{%             endif -%}
+{#            ╔══════════════════════════════════════════╗-#}
+{#            ║   COUNTBOOL FALSE + ELSE (CCS_BASE())    ║-#}
+{#            ╚══════════════════════════════════════════╝-#}
+{%            else -%}
+{%              if "Default" in Record.attrib.keys() -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '{{Record.get("Default")}}', 'value': '{{ Record.get("Default") }}'}) #11
+{%              else -%}
+{{"        "}}self.lstRecords.append({'name': '{{Record.get("Name")}}', 'type': '{{Record.get("Type")}}', 'default': '0', 'value': '0' }) #12
+{%              endif -%}
+{%              if "Min" in Record.attrib.keys() -%}
+{{"        "}}self.dictRecords['min'] = '{{Record.get("Min")}}'
+{%              endif -%}
+{%              if "Max" in Record.attrib.keys() -%}
+{{"        "}}self.dictRecords['max'] = '{{Record.get("Max")}}'
+{%               endif -%}
+
+{%           endif -%}
+{%           endif -%} {# if Record.get("CountBool") == True -#}
+{%        endfor -%}
+{%      endfor -%}
+{%    endif -%} {# if Element["FunctionType"] == "struct" -#}
+{#                              -#}
+{#╔════════════════════════════╗-#}
+{#║   ADD CLASS OR ADD ENUM    ║-#}
+{#╚════════════════════════════╝-#}
+{#                              -#}
+{%    if Element["FunctionType"] == "enum" -%}
+{{"\n\n"}}CCS_Add_Enum('{{ Element["TypedefTest"].get("Name") }}', {{ Element["TypedefTest"].get("Name") }})
+{%    elif Element["FunctionType"] == "struct" -%}
+{{"\n\n"}}CCS_Add_Class('{{ Element["TypedefTest"].get("Name") }}', {{ Element["TypedefTest"].get("Name") }})
+{%    endif -%}
+{% endfor -%}
+{{"# =========================================================="}}
+{{"# TYPEDEFS STOP #"}}
+{{"# =========================================================="}}
+{{""}}
+{{""}}
+{{"# =========================================================="}}
+{{"# MESSAGE HEADER START #"}}
+{{"# =========================================================="}}
+{% if Header != None -%}
+{{""}}#  MESSAGE HEADER CLASS
+{{""}}class MsgHeader(CCS_HdrStruct):
+{{""}}    """Public class definition of message header}
+{{""}}    Args:
+{{""}}
+{{""}}    """
+{{"    "}}def __init__(self):
+{{"        "}}super(CCS_HdrStruct, self).__init__()
+{%   for dctHeaderField in Header -%}
+{{"        "}}{{ dctHeaderField["acHeaderFullDefLine"] }}
+{{"        "}}{{ dctHeaderField["acHeaderAddTypeLine"] }}
+{%   endfor %}
+{{""}}CCS_Add_Class('MsgHeader', MsgHeader)
+{% endif -%}
+{{""}}
+{{""}}
+{{"# =========================================================="}}
+{{"# MESSAGE HEADER STOP #"}}
+{{"# =========================================================="}}
+{{"# =========================================================="}}
+{{"# MESSAGE PAYLOAD START #"}}
+{{"# =========================================================="}}
+{% for Message in MessageStructs if Message.tag == "Payload" -%}
+{%   if Message.get("PayloadBool") == True -%}
+{{""}}
+{{""}}
+{{""}}class s{{ Message.get("Name") }}_PL(CCS_MsgStruct):
+{{""}}    """Public class definition of payload from message {{Message.get("Name")}}
+{{""}}    Args:
+{{""}}
+{{""}}    """
+{{"    "}}def __init__(self, formatType=None):
+{{"        "}}super(s{{ Message.get("Name") }}_PL, self).__init__(formatType)
+{{"        "}}# NO PAYLOAD
+{{"        "}}self.dictRecords = {}
+{{"        "}}self.lstRecords = []
+{%   else -%}
+{{""}}
+{{""}}
+{{""}}class s{{ Message.get("Name") }}_PL(CCS_MsgStruct):
+{{""}}    """Public class definition of payload from message {{Message.get("Name")}}
+{{""}}    Args:
+{{""}}
+{{""}}    """
+{{"    "}}def __init__(self, formatType=None):
+{{"        "}}super(s{{ Message.get("Name") }}_PL, self).__init__(formatType)
+{{"        "}}#  PAYLOAD CONTENT
+{{"        "}}self.dictRecords = {}
+{{"        "}}self.lstRecords = []
+
+{%     for Item in Message.getchildren() if Item.tag == "Field" -%}
+{#     ╔════════════════════╗-#}
+{#     ║   COUNTBOOL TRUE   ║-#}
+{#     ╚════════════════════╝-#}
+{%     if Item.get("CountBool") == True -%}
+{#       ╔═════════════════════════════╗-#}
+{#       ║   COUNTBOOL TRUE + ENUM     ║-#}
+{#       ╚═════════════════════════════╝-#}
+{%       if Item.get("Type") in EnumTypes.keys() -%}
+{#           ╔══════════════════════════════════════╗-#}
+{#           ║   COUNTBOOL TRUE + ENUM + DEFAULT    ║-#}
+{#           ╚══════════════════════════════════════╝-#}
+{%           if "Default" in Item.keys() -%}
+{%             if "bDefaultIsEnum" in Item.keys() -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+{{"        "}}for n in range({{ Item.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")] }}', 'default': '{{ Item.get("Default") }}', 'value': {{Item.get("Type")}}.lstRecords['{{Item.get("Default")}}'], 'members': cls{{Item.get("Type")}}.lstRecords}) #-7
+
+{%             else -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+{{"        "}}for n in range({{ Item.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")] }}', 'default': '0', 'value': '0', 'members': cls{{Item.get("Type")}}.lstRecords}) #-6-1
+{%             endif -%}
+{%           else -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+{{"        "}}for n in range({{ Item.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")] }}', 'default': '0', 'value': '0', 'members': cls{{Item.get("Type")}}.lstRecords}) #-5-2
+{%           endif -%}
+
+{#       ╔═══════════════════════════════╗-#}
+{#       ║   COUNTBOOL TRUE + STRUCT     ║-#}
+{#       ╚═══════════════════════════════╝-#}
+{%       elif "UseStruct" in Item.attrib.keys() -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+{{"        "}}for n in range({{ Item.get("Count") }}):
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#-4
+
+{#       ╔══════════════════════════════════════════╗-#}
+{#       ║   COUNTBOOL TRUE + ELSE (CCS_BASE())     ║-#}
+{#       ╚══════════════════════════════════════════╝-#}
+{%       else -%}
+{%          if Item.get("Type") in ["CH", "ST"]  -%}
+{%            if "Default" in Item.attrib.keys() -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '{{ Item.get("Default") | replace("\"", "") }}', 'value': '{{ Item.get("Default") | replace("\"", "") }}', 'count': {{ Item.get("Count") }} }) #-5-1-1-1
+{%            else -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '', 'value': '', 'count': {{ Item.get("Count") }} }) #-5-1-1-2
+{%            endif -%}
+{%          else -%}
+{{"        "}}for n in range({{ Item.get("Count") }}):
+{%            if "Default" in Item.attrib.keys() -%}
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '{{ Item.get("Default") }}', 'value': '{{ Item.get("Default") }}', 'count': 1 }) #-5-1-2-1
+{%            else -%}
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '0', 'value': '0', 'count': 1 }) #-5-1-2-2
+{%            endif -%}
+{%          endif -%}
+{%       endif -%}
+{#     ╔════════════════════╗-#}
+{#     ║   ENUM             ║-#}
+{#     ╚════════════════════╝-#}
+{%     elif Item.get("Type") in EnumTypes.keys() -%}
+{%       if "Default" in Item.keys() -%}
+{%         if "bDefaultIsEnum" in Item.keys() -%}
+{%           if Item.get("bDefaultIsEnum") == True -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")]}}', 'default': '{{ Item.get("Default") }}', 'value': cls{{Item.get("Type")}}.lstRecords['{{Item.get("Default")}}'], 'members': cls{{Item.get("Type")}}.lstRecords}) #-1.3
+
+{%           else -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}if {{ Item.get("Count") }} != None:
+{{"            "}}for n in range({{ Item.get("Count") }}):
+{{"                "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")]}}', 'default': '{{ Item.get("Default") }}', 'value': cls{{Item.get("Type")}}.lstRecords['{{Item.get("Default")}}'], 'members': cls{{Item.get("Type")}}.lstRecords} )#-1.2
+
+{{"        "}}elif {{ Item.get("Count") }} == None:
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}','enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")]}}', 'default': '{{ Item.get("Default") }}', 'value': cls{{Item.get("Type")}}.lstRecords['{{Item.get("Default")}}'], 'members': cls{{Item.get("Type")}}.lstRecords} )#-1.2
+
+{%           endif -%}
+{%         endif -%}
+{%       else -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'enumType': '{{ Item.get("Type") }}', 'type': '{{ EnumTypes[Item.get("Type")]}}', 'type': '{{ EnumTypes[Item.get("Type")]}}', 'default': '0', 'value': '0', 'members': cls{{Item.get("Type")}}.lstRecords}) #-1.1
+
+
+{%       endif -%}
+
+{#     ╔════════════════════╗-#}
+{#     ║   STRUCT           ║-#}
+{#     ╚════════════════════╝-#}
+{%     elif "UseStruct" in Item.attrib.keys() -%}
+{%       if Item.get("Type") in CoreTypes.keys() -%}
+{%         if "Default" in Item.keys() -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}if {{ Item.get("Count") }} != None:
+{{"            "}}for n in range({{ Item.get("Count") }}):
+{{"                "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#1.1
+
+{{"        "}}elif {{ Item.get("Count") }} == None:
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#1.1
+
+
+{%         else -%}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}if {{ Item.get("Count") }} != None:
+{{"            "}}for n in range({{ Item.get("Count") }}):
+{{"                "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#1.2
+
+{{"        "}}elif {{ Item.get("Count") }} == None:
+{{"            "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#1.2
+
+
+{%         endif -%}
+{%       else -%} {#  Typedef ?? -#}
+{{"        "}}cls{{ Item.get("Type") }} = {{ Item.get("Type") }}()
+
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'members': cls{{Item.get("Type")}}.lstRecords})#1.3
+
+{%       endif -%}
+{#     ╔════════════════════════════════════════════════════╗-#}
+{#     ║   COUNTBOOL FALSE + NOT ENUM + NOT STRUCT          ║-#}
+{#     ╚════════════════════════════════════════════════════╝-#}
+{%     else -%}
+{#       ╔════════════════════════════════════════════════════════════════╗-#}
+{#       ║   COUNTBOOL FALSE + NOT ENUM + NOT STRUCT + CORE TYPE          ║-#}
+{#       ╚════════════════════════════════════════════════════════════════╝-#}
+{%       if Item.get("Type") in CoreTypes.keys() -%}
+{%         if Item.get("Type") in ["CH", "ST"] -%}
+{%           if "Default" in Item.keys() -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '{{ Item.get("Default") | replace("\"", "") }}', 'value': '{{ Item.get("Default") | replace("\"", "") }}', 'count': 1 }) #1-4-1
+{%           else -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '', 'value': '', 'count': 1 }) #1-4-2
+{%           endif -%}
+{%         else -%}
+{%           if "Default" in Item.keys() -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '{{ Item.get("Default") }}', 'value': '{{ Item.get("Default") }}' }) #1-4-3
+{%           else -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '0', 'value': '0' }) #1.5
+{%           endif -%}
+{%           if "Min" in Item.attrib.keys() -%}
+{{"        "}}self.dictRecords['min'] = {{Item.get("Min")}}
+{%           endif -%}
+{%           if "Max" in Item.attrib.keys() -%}
+{{"        "}}self.dictRecords['max'] = {{Item.get("Max")}}
+{%           endif -%}
+{%         endif -%}
+{%       else -%}
+{{"        "}}self.lstRecords.append({'name': '{{ Item.get("Name") }}', 'type': '{{ Item.get("Type") }}', 'default': '{{ Item.get("Default") }}', 'value': '0'  }) #1.6
+{%       endif -%}
+
+{%     endif -%}
+{%     endfor -%}
+{{""}}
+{{""}}
+{{""}}CCS_Add_Class('s{{ Message.get("Name") }}_PL', s{{ Message.get("Name") }}_PL)
+{%   endif -%}
+{% endfor -%}
+{{""}}
+{{""}}
+{{"# =========================================================="}}
+{{"# MESSAGE PAYLOAD STOP #"}}
+{{"# =========================================================="}}
+{{"# =========================================================="}}
+{{"# MESSAGES START #"}}
+{{"# =========================================================="}}
+{% for dctMessageTagDictItem in MessageDictItems -%}
+{{""}}
+{{""}}
+{{""}}class {{dctMessageTagDictItem["acMsgNameInPythonSource"]}}(CCS_Message):
+{{""}}    """Public class definition of message {{dctMessageTagDictItem["acMsgNameInPythonSource"]}}
+{{""}}    Args:
+{{""}}
+{{""}}    """
+{{"    "}}def __init__(self):
+{{"        "}}super({{dctMessageTagDictItem["acMsgNameInPythonSource"]}}, self).__init__()
+{% if dctMessageTagDictItem["lstFields"] != None -%}
+{{"        "}}self.sMsgHeader = MsgHeader()
+{{"        "}}self.roles = "{{dctMessageTagDictItem["acRolesInPythonSource"]}}" #AddRolesHere
+{{"        "}}{{ dctMessageTagDictItem["acMsgPayloadConstructSourceLine"] }}
+{%   for dctHeaderField in dctMessageTagDictItem["lstFields"] -%}
+{{"        "}}{{ dctHeaderField["acMsgPopulateSourceLine"] }}
+{%   endfor -%}
+{% else -%}
+{{"        "}}# No header fields
+{{"        "}}pass
+{% endif -%}
+{{""}}
+{{""}}
+{{""}}CCS_Add_Message('{{ dctMessageTagDictItem["acMsgNameInPythonSource"] }}', {{ dctMessageTagDictItem["acMsgNameInPythonSource"] }})
+{% endfor -%}
+{{"# =========================================================="}}
+{{"# MESSAGES STOP #"}}
+{{"# =========================================================="}}
+{{""}}

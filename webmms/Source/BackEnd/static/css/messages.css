@@ -1,0 +1,84 @@
+/*"""-----------------------------------------------------------------------------
+
+Company  : Reutech Radar Systems
+Designer : T Ramukosi
+Mentor   : J Taylor
+Generated: 2018-08-30
+-----------------------------------------------------------------------------*/
+
+.xmlNames p{
+    cursor: pointer;
+}
+.xmlNames p:hover{
+    opacity: .5;
+}
+.ListMessages{
+    margin-top: -10px;
+    margin-bottom: 0px;
+    margin-left: -20px;
+}
+.lstMessagesFold{
+    margin-bottom: 0px;
+    margin-left: -50px;
+}
+.listAttr{
+    margin-left: -30px;
+}
+.messageLink{
+    list-style: none;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.messageLink:hover{
+    opacity: .5;
+}
+.buttonStyle:hover{
+    cursor: pointer;
+    background-color: black;
+    color: lightgrey;
+    transition: 1s;
+}
+ul p{
+    cursor: pointer;
+}
+ul p:hover{
+    opacity: .5;
+}
+ul li{
+    list-style: none;
+    margin-top: 3px;
+}ul li i{
+    font-style: normal;
+}
+input[type="checkbox"]:hover{
+    cursor: pointer;
+}
+
+.FavMsgsMessage p:hover{
+    cursor: pointer;
+    opacity: .5;
+}
+.fav{
+    font-style: italic;
+    font-weight: 500;
+}
+.removeFavMsg{
+    cursor: pointer;
+}
+
+.boxShadowResp{
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.appendedDiv, .appendedDivResp{
+    margin-top: -10px;
+    padding-left: 10px;
+}
+.appendedDiv input[type="button"]{
+    margin-top: 20px;
+}
+
+.msgRecording{
+    width: 20px;
+}

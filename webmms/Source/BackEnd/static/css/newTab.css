@@ -1,0 +1,86 @@
+/*"""-----------------------------------------------------------------------------
+
+Company  : Reutech Radar Systems
+Designer : T Ramukosi
+Mentor   : J Taylor
+Generated: 2018-08-30
+-----------------------------------------------------------------------------*/
+
+.tableConLabels, .tableLabels, .tableLabelsResp, .PaytableLabels, .PaytableLabelsResp{
+    text-align: right;
+    padding-right: 10px;
+    width: 100%;
+}
+
+#connections{
+    margin-bottom: 25px;
+}
+#connections input[type="text"]{
+    width:200px;
+}
+
+
+
+#midHeaderTable{
+    margin-top: 0px;
+}
+#midHeaderTable input[type="text"]{
+    width:200px;
+}
+.boxShadow input[type="text"]{
+    width:200px;
+}
+#midHeaderTableResp{
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+#midHeaderTableResp input[type="text"]{
+    width:200px;
+}
+
+#FirstZLevel, #FirstZLevelResp{
+    margin-top: 25px;
+}
+.boxShadow, .boxShadowResp{
+    padding-bottom: 0px;
+    margin-bottom: -10px;
+}
+.boxShadowResp input[type="text"]{
+    width:200px;
+}
+
+#MsgPayload, #MsgRespPayload{
+    margin-top: 30px;
+}
+
+#submitButton{
+    margin-top: 25px;
+}
+#status{
+    margin-top: 10px;
+    color: green;
+    text-align: center;
+}
+
+@media (min-width: 1300px) {
+    .tableConLabels, .tableLabels, .tableLabelsResp, .PaytableLabels, .PaytableLabelsResp{
+        text-align: right;
+        padding-right: 10px;
+        width:300px;
+    }
+    #connections input[type="text"]{
+        width:100%;
+    }
+    #midHeaderTable input[type="text"]{
+        width:100%;
+    }
+    .boxShadow input[type="text"]{
+        width:100%;
+    }
+    #midHeaderTableResp input[type="text"]{
+        width:100%;
+    }
+    .boxShadowResp input[type="text"]{
+        width:100%;
+    }
+}

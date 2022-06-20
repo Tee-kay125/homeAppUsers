@@ -1,0 +1,5 @@
+acPublisherIp = "127.0.0.1"
+acPublisherBindPort = "63222"
+lstSubscribeTopics = [  "ADCS","ELM"]
+
+
